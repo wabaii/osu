@@ -81,3 +81,61 @@ max combo and accuracy on the left.
 **Logo rules.** Use the original file and keep it sharp. Don't rotate it, outline
 it, recolour the full-colour version, or put anything inside it. Scaling and
 fading it as a whole is fine.
+
+---
+
+# v2: osu!(lazer) design language and official audio
+
+## Official osu! audio ([ppy/osu-resources](https://github.com/ppy/osu-resources), CC BY-NC 4.0)
+
+| Asset | Timing (from the bundled `.osu`) | Used for |
+| --- | --- | --- |
+| `Tracks/welcome.osz`: nekodex – *welcome to osu!* (48 s loop) | 120 BPM, offset −40 ms | menu, song select |
+| `Tracks/circles.osz`: nekodex – *circles!* | 184 BPM, offset 2558.8 ms, kiai 12.99–53.43 s | gameplay, results |
+| `Tracks/triangles.osz`: cYsmix – *triangles* | 160 BPM, offset 3011.7 ms | outro |
+| `Samples/Intro/Welcome/welcome`, `welcome_piano`, `seeya` | — | intro and exit voice |
+| `Samples/Gameplay/Argon/*` | — | hitsounds, slider, spinner, fountain |
+| `Samples/Menu`, `SongSelect`, `Results`, `UI` | — | UI sounds |
+
+## lazer source files the visuals were ported from ([ppy/osu](https://github.com/ppy/osu))
+
+- `Screens/Menu/IntroWelcome.cs`: the Welcome intro sequence. Voice and piano start together;
+  the welcome text scales from Y=0 over 400 ms; the container scales 0.9→1 over 2142 ms; the
+  track starts and the logo fades in at 2142 ms.
+- `Screens/Menu/OsuLogo.cs`: the logo is a pink gradient (`#ff66ab`→`#cc5289`) with outlined
+  TrianglesV2 (`#ff66ab`→`#b6346f`), drawn under the `Menu/logo` texture at 0.94 scale. On each
+  beat it gets an additive ripple and a 2% scale dip; on kiai beats it flashes white.
+- `Screens/Menu/LogoVisualisation.cs`: 200 bars per round, 5 rounds, decay 0.0024 per ms.
+- `Screens/Menu/ButtonSystem.cs` / `MainMenuButton.cs`: buttons are 140×100 with 20-unit
+  wedge shear. Colours: play `#6644CC`, edit `#EEAA00`, browse `#A5CC00`, exit `#EE3399`,
+  settings `#555`, solo `#6644CC`, multi / playlists / daily `#5E3FBA`, back `#333A5E`. On hover
+  a button widens to 1.5× (OutElastic) and its icon bounces on the beat.
+- `Overlays/Toolbar/Toolbar.cs`: 40-unit-high toolbar.
+- `Skinning/ArgonSkin.cs`: combo colours `#F17400 #00F135 #0052F1 #F10000 #E8EB00 #5C00F1` and
+  the default HUD layout.
+- `Rulesets.Osu/Skinning/Argon/*`:
+  - `ArgonMainCirclePiece` geometry: border 4.4, outer gradient c→c/1.1, inner gradient c/1.5→c/1.6,
+    fills c/5. Its hit animation is an elastic shrink to 0.8 with a white flash.
+  - `ArgonSliderBody`: a coloured border with a body of c/5.
+  - The ball, follow circle (2.4×), reverse arrow and follow points (`#FC618F`→`#BB1A41`).
+  - `ArgonJudgementPiece`: additive "GREAT" with a ring burst.
+  - `ArgonSpinner`: 25 ticks, ring arcs, side progress arcs, and SPINS PER MINUTE.
+  - `ArgonCursor`.
+- `Screens/Play/HUD/Argon*`:
+  - Segmented `argon-counter` digits with a 25% wireframe.
+  - Health bar: white, with a `#7ED7FD` glow.
+  - Wedge pieces: `#66CCFF` 0→25%.
+  - Combo bottom-left at 1.3× scale, accuracy and pp top-right, song progress with an
+    object-density graph.
+- `Screens/Ranking/*`:
+  - `ScorePanel`: 360×586, with a middle layer of `#555`→`#333` and a top layer of `#444`→`#333`.
+  - `AccuracyCircle`: a ring fading `#7CF6FF`→`#BAFFA9`, filling over 3 s with OutPow10;
+    graded rings; rank badges.
+  - The rank text glows in its `OsuColour.ForRank` colour (SS `#DE31AE`).
+
+## lazer footage studied
+
+- [osu! YouTube channel: "the song select re-design"](https://www.youtube.com/watch?v=H_a5Cqv7Tok) (thumbnail).
+- [Song Select V1 vs V2 comparison](https://www.youtube.com/watch?v=M_Cw0nFHmf8) (thumbnail).
+- [osu!lazer intros](https://www.youtube.com/watch?v=XKa7Ivne-Mk) (thumbnail): the main menu button bar.
+- [Argon skin gameplay](https://www.youtube.com/watch?v=qj5RE6jIJIA) (thumbnail).

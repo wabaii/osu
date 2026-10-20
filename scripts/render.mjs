@@ -1,6 +1,6 @@
 // Renders src/index.html frame-by-frame with headless Chromium and encodes it with ffmpeg.
 //
-//   node scripts/render.mjs cues                 -> build/cues.json (hitsound timing for make_audio.py)
+//   node scripts/render.mjs cues                 -> build/cues.json (sound cues + track placement for mix_audio.py)
 //   node scripts/render.mjs stills 0.5,6.2,31    -> build/stills/*.png
 //   node scripts/render.mjs video [--workers=4] [--from=0] [--to=56] [--out=output/osu-motion-graphic.mp4]
 //   node scripts/render.mjs serve                -> preview server on http://localhost:8080/src/
@@ -23,7 +23,7 @@ const args = process.argv.slice(2);
 const mode = args[0] || 'video';
 const opt = Object.fromEntries(args.filter(a => a.startsWith('--')).map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; }));
 
-const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.ttf': 'font/ttf', '.wav': 'audio/wav', '.json': 'application/json', '.css': 'text/css' };
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.jpg': 'image/jpeg', '.ttf': 'font/ttf', '.wav': 'audio/wav', '.json': 'application/json', '.css': 'text/css', '.bin': 'application/octet-stream' };
 function serve(port = 0) {
   const server = http.createServer((req, res) => {
     const p = path.join(ROOT, decodeURIComponent(new URL(req.url, 'http://x').pathname));
