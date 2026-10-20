@@ -1,0 +1,17 @@
+{
+  "name": "osu-motion-graphic",
+  "private": true,
+  "description": "\"click the circles\": a code-generated osu! motion graphic (1080p60, 56s)",
+  "type": "module",
+  "scripts": {
+    "cues": "node scripts/render.mjs cues",
+    "audio": "python3 scripts/make_audio.py build/cues.json build/soundtrack.wav",
+    "stills": "node scripts/render.mjs stills",
+    "video": "node scripts/render.mjs video",
+    "build": "npm run cues && npm run audio && npm run video",
+    "preview": "node scripts/render.mjs serve"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}

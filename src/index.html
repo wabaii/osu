@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>click the circles — osu! motion graphic</title>
+<style>
+  @font-face { font-family: 'Exo 2'; src: url(fonts/Exo2.ttf) format('truetype'); font-weight: 100 900; font-style: normal; }
+  @font-face { font-family: 'Exo 2'; src: url(fonts/Exo2-Italic.ttf) format('truetype'); font-weight: 100 900; font-style: italic; }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  canvas { position: absolute; inset: 0; margin: auto; width: min(100vw, 177.78vh); height: min(56.25vw, 100vh); }
+  #ui { display: none; position: fixed; left: 16px; bottom: 16px; gap: 12px; align-items: center; font: 600 14px 'Exo 2', sans-serif; color: #fff; }
+  #ui button { font: inherit; background: #ff66aa; color: #fff; border: 0; border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+  #ui span { opacity: .7; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<audio id="music" src="../build/soundtrack.wav" preload="auto"></audio>
+<div id="ui"><button>play</button><span id="time">0.00s</span><span>space: restart · ←/→: seek</span></div>
+<script src="js/core.js"></script>
+<script src="js/objects.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
